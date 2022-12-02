@@ -1,19 +1,33 @@
 import requests
+from requests.structures import CaseInsensitiveDict
+from http.client import HTTPConnection
 
 
-wordlist = 'crash.txt'
-url = 'http://localhost:8000/'
-uri = None
+
+s = requests.Session()
+
+
+headers = CaseInsensitiveDict()
+headers["Connection"] = "keep-alive"
+headers["Keep-Alive"] = "timeout=5, max=100"
+
+desired_status_codes = [200, 301]
+
+wordlist = 'wordlist.txt'
+url = 'http://192.168.6.176:8000/'
+directory = None
+timeout = 100
+follow_redirects = False
+
+
 
 with open(wordlist, 'r') as file:
     for directory in file:
-        #print(repr(directory[-1]))
         directory = directory.replace('\n','')
-        #print(repr(directory[-1]))
-        uri = url + directory
-        #print(uri)
-
-        # note: requests by default follows redirections
-        response = requests.get(uri, timeout=0.001, allow_redirects=False)
+        directory = url + directory
+        response = s.get(directory, headers=headers,timeout=timeout)
         if(response.status_code == 200):
             print('directory found --->', directory)
+
+
+
