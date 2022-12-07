@@ -27,10 +27,20 @@ class ArgParser:
         Else calls a function for printing help message.'''
 
         for arg in list(self.arguments.keys()):
+
+            #catching IndexError exception
             try:
                 index_of_arg = args_from_console.index(arg)
-                self.parsed_arguments[arg] = args_from_console[index_of_arg + 1]
-            except:
+
+                #parses timeout value form string to integer
+                if(arg== '-t'):
+                    self.parsed_arguments[arg] = int(args_from_console[index_of_arg + 1])
+                else:
+                    self.parsed_arguments[arg] = args_from_console[index_of_arg + 1]
+            except IndexError:
+                self.__print_help()
+            except ValueError:
+                print('Timeout must be an integer')
                 self.__print_help()
                 
         return self.parsed_arguments
