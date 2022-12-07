@@ -1,0 +1,7 @@
+line1
+line2
+dir1
+dir2
+line3
+dir3
+line4
