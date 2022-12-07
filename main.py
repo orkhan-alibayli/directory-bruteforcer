@@ -19,7 +19,7 @@ def main():
     print(parsed_args)
 
     #create Bruteforcer object
-    bf = bruteforcer.Bruteforcer(parsed_args['-u'], parsed_args['-w'], int(parsed_args['-t']))
+    bf = bruteforcer.Bruteforcer(parsed_args['-u'], parsed_args['-w'], parsed_args['-t'])
     bf.run_bruteforcer()
 
 
