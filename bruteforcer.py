@@ -16,11 +16,14 @@ class Bruteforcer:
     
     def run_bruteforcer(self):
         '''opens given wordlist file and send requests for each line in same TCP session'''
-        
-        with open(self.wordlist, 'r') as file:
-            for directory in file:
-                directory = directory.replace('\n','')
-                directory = self.url + directory
-                response = self.session.get(directory, headers=self.headers,timeout=self.timeout)
-                if(response.status_code == 200):
-                    print('directory found --->', directory)
+
+        try:
+            with open(self.wordlist, 'r') as file:
+                for directory in file:
+                    directory = directory.replace('\n','')
+                    directory = self.url + directory
+                    response = self.session.get(directory, headers=self.headers,timeout=self.timeout)
+                    if(response.status_code == 200):
+                        print('directory found --->', directory)
+        except FileNotFoundError:
+            print('The file not found')
